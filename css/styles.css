@@ -550,6 +550,11 @@ transition: opacity var(--transition), visibility var(--transition);
 .modal-close {
     display: block;
     margin-left: auto;
+    border-radius: 50%;
+    align-items: center;
+    background-color: var(--fotter-text-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
 }
 
 .is-hidden {
