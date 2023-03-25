@@ -8,6 +8,8 @@
     --footter-logo-color:#F4F4FD;
     --icon-color:#8e8f99;
     --icon-color-footer:#31D0AA;
+    --color-modal:#FCFCFC;
+    --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
  }   
 
 .list {
@@ -84,11 +86,15 @@ img {
     color:var(--secondary-color);
 }
 .menu-link {
+    position: relative;
+    padding-top: 28px;
+    padding-bottom: 28px;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.5;
     letter-spacing: 0.02em;
     color: var(--secondary-color);
+    transition: color var(--transition);
 }
 
 .menu-link:hover,
@@ -106,6 +112,7 @@ img {
     line-height: 1.5;
     letter-spacing: 0.02em;
     color: var(--primary-text-color);
+    transition:  color var(--transition);
 }
 .contacts-menu:hover,
 .contacts-menu:focus {
@@ -122,7 +129,17 @@ img {
 button{
     cursor: pointer;
 }
-
+.menu-link.current::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--accent-color);
+    border-radius: 2px;
+    
+}
 /*=============== body============ */
 body {
        font-family: "Roboto", sans-serif;
@@ -187,6 +204,7 @@ body {
     border: 1px solid var(--icon-color);
     border-radius: 4px;
     fill: var(--icon-color);
+    transition:  fill var(--transition), border-color var(--transition);
 }
 .customer-item-link:hover,
 .customer-item-link:focus {
@@ -207,7 +225,8 @@ body {
         padding: 16px 32px;
         border: none;
         border-radius: 4px;
-        
+        transition: background-color var(--transition);
+    
 }
 .modal-btn:hover,
 .modal-btn:focus {
@@ -232,10 +251,10 @@ background-color: var(--accent-color);
         letter-spacing: 0.04em;
         padding: 12px 24px;
         color: var(--logo-color);
-        background: var(--footter-logo-color);
+        background-color: var(--footter-logo-color);
         border: 1px solid var(--fotter-text-color);
         border-radius: 4px;
-
+        transition:  color var(--transition); background-color: var(--transition); box-shadow: var(--transition);
 }
 .filter-btn-activ:hover,
 .filter-btn-activ:focus{
@@ -359,6 +378,7 @@ background-color: var(--accent-color);
     padding-bottom: 32px;
    
 }
+/* ======projects-card===== */
 .projects-card {
     display: flex;
     flex-wrap: wrap;
@@ -369,6 +389,29 @@ background-color: var(--accent-color);
 }
 .card-link {
     display: block;
+    transition: box-shadow var(--transition);
+}
+.projects-overlay {
+    position: relative;
+    overflow: hidden;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+     color: var(--footter-logo-color);
+    background: var(--logo-color);
+    height: 100%;
+    padding: 40px 32px 164px 32px;
+    transform: translateY(100%);
+    transition: transform var(--transition);
+}
+.projects-card-item:hover .overlay {
+transform: translateY(0);
+
 }
 
 .card-link:hover,
@@ -401,7 +444,9 @@ background-color: var(--accent-color);
         color: var(--primary-text-color);
         
 }
+/* =============projects-card============== */
 
+/* =============card-soc-list============== */
 .card-soc-list {
     margin-top: 8px;
     display: flex;
@@ -421,6 +466,7 @@ background-color: var(--accent-color);
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color var(--transition) ;
 
 }
 .card-soc-link:hover,
@@ -463,15 +509,52 @@ background-color: var(--accent-color);
     margin-bottom: 16px;
 }
 .footer-soc-color {
-background: rgba(255, 255, 255, 0.1);
+background-color: rgba(255, 255, 255, 0.1);
+transition: background-color var(--transition);
 }
 
 .footer-soc-color:hover,
 .footer-soc-color:focus {
-background: var(--icon-color-footer);
+background-color: var(--icon-color-footer);
 }
 .card-soc-list-footer {
     margin-top: 8px;
     display: flex;
     justify-content: center;
-    gap: 16px;}
+    gap: 16px;
+}
+.backdrop {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(46, 47, 66, 0.4);
+transition: opacity var(--transition), visibility var(--transition);
+}
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleY(1);
+    transition: transform var(--transition);
+    min-width: 408px;
+    min-height: 576px;
+    background-color:var(--color-modal);
+    padding: 34px 24px;
+}
+.backdrop.is-hidden .modal {
+    transform: translate(-50%, -50%) scaleY(0);
+
+}
+.modal-close {
+    display: block;
+    margin-left: auto;
+}
+
+.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+}
